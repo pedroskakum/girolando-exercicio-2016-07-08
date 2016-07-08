@@ -12,7 +12,7 @@ class CreateProdutoTable extends Migration
      */
     public function up()
     {
-        Schema::connection('sqlite')->create('Produto', function (Blueprint $table) {
+        Schema::create('Produto', function (Blueprint $table) {
             $table->bigIncrements('idProduto');
             $table->unsignedBigInteger('idCategoria');
             $table->foreign('idCategoria')->references('idCategoria')->on('Categoria');
@@ -29,6 +29,6 @@ class CreateProdutoTable extends Migration
      */
     public function down()
     {
-        Schema::connection('sqlite')->drop('Produto');
+        Schema::drop('Produto');
     }
 }

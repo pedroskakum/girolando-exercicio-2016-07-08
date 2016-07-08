@@ -11,11 +11,45 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\SQLite\Produto::class, function (Faker\Generator $faker) {
+
+    $SQLiteCategoria = factory(App\Models\SQLite\Categoria::class)->create();
+
     return [
-        'name' => $faker->name,
-        'email' => $faker->safeEmail,
-        'password' => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
+        'idCategoria'       => $SQLiteCategoria->idCategoria,
+        'nomeProduto'       => $faker->name,
+        'precoProduto'      => $faker->randomFloat(100, 10, 500),
+        'descricaoProduto'  => $faker->paragraph,
+    ];
+});
+
+$factory->define(App\Models\SQLite\Categoria::class, function (Faker\Generator $faker) {
+    return [
+        'nomeCategoria' => $faker->name,
+    ];
+});
+
+$factory->define(App\Models\MySQL\Product::class, function (Faker\Generator $faker) {
+
+    $SQLiteProduto = factory(App\Models\SQLite\Produto::class)->create();
+    $MySQLCategoty = factory(App\Models\MySQL\Category::class)->create(['id' => $SQLiteProduto->idCategoria]);
+
+    return [
+        'id'                    => $SQLiteProduto->idProduto,
+        'productName'           => $SQLiteProduto->nomeProduto,
+        'procuctPrice'          => $SQLiteProduto->precoProduto,
+        'productPicture'        => $faker->imageUrl(),
+        'productDescription'    => $SQLiteProduto->descricaoProduto,
+        'categoryId'            => $MySQLCategoty->CategoryName,
+    ];
+});
+
+$factory->define(App\Models\MySQL\Category::class, function (Faker\Generator $faker) {
+
+    $SQLiteCategoria = factory(App\Models\SQLite\Categoria::class)->create();
+
+    return [
+        'id'            => $SQLiteCategoria->idCategoria,
+        'CategoryName'  => $SQLiteCategoria->nomeCategoria,
     ];
 });

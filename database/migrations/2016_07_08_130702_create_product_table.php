@@ -14,16 +14,12 @@ class CreateProductTable extends Migration
     {
         Schema::connection('mysql')->create('Product', function (Blueprint $table) {
             $table->bigInteger('id');
-            $table->primary('id');
             $table->string('productName');
             $table->double('procuctPrice');
             $table->string('productPicture');
-
-            $table->unsignedBigInteger('categoryId');
-            $table->foreign('categoryId')->references('id')->on('Category');
-
-
             $table->text('productDescription');
+            $table->bigInteger('categoryId');
+            $table->foreign('categoryId')->references('id')->on('Category');
         });
     }
 

@@ -12,7 +12,7 @@ class CreateCategoriaTable extends Migration
      */
     public function up()
     {
-        Schema::connection('sqlite')->create('Categoria', function (Blueprint $table) {
+        Schema::create('Categoria', function (Blueprint $table) {
             $table->bigIncrements('idCategoria');
             $table->string('nomeCategoria');
         });
@@ -25,6 +25,6 @@ class CreateCategoriaTable extends Migration
      */
     public function down()
     {
-        Schema::connection('sqlite')->drop('Categoria');
+        Schema::drop('Categoria');
     }
 }

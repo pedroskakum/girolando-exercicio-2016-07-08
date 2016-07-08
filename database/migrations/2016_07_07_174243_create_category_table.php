@@ -13,8 +13,7 @@ class CreateCategoryTable extends Migration
     public function up()
     {
         Schema::connection('mysql')->create('Category', function (Blueprint $table) {
-            $table->bigInteger('id');
-            $table->primary('id');
+            $table->bigInteger('id')->primary();
             $table->string('CategoryName');
         });
     }
